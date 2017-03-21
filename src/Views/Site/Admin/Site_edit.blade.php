@@ -55,9 +55,15 @@ Admin area: {{ trans('site::site_admin.page_edit') }}
                                 <!--TEMPLATE OVERVIEW-->
                                 <div id="home" class="tab-pane fade in active">
                                     <!-- SAMPLE NAME TEXT-->
+                                    <!-- SITE NAME TEXT -->
                                     @include('site::site.elements.text', ['name' => 'site_name'])
+                                    <!-- /END SITE NAME TEXT -->
+                                    <!-- SITE URL TEXT -->
                                     @include('site::site.elements.text', ['name' => 'site_url'])
+                                    <!-- /END SITE URL TEXT -->
+                                    <!-- SITE IMAGE IMAGE -->
                                     @include('site::site.elements.image', ['name' => 'site_image'])
+                                    <!-- /END SITE IMAGE IMAGE -->
                                     <!-- /END SAMPLE NAME TEXT -->
                                 </div>
 
