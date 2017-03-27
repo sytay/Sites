@@ -60,6 +60,12 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'admin_site.categories',
             'uses' => 'Sites\Controllers\Admin\SiteCategoryController@index'
         ]);
+        
+        Route::get('admin/site/mapcategories', [
+            'as' => 'admin_site.mapcategories',
+            'uses' => 'Sites\Controllers\Admin\MapCategoryController@index'
+        ]);
+        
         Route::get('/work', function() {
             return view('tags');
         });
