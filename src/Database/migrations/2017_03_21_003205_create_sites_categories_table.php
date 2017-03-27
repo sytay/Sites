@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorksCategoriesTable extends Migration {
-
+class CreateSitesCategoriesTable extends Migration
+{
     private $_table = NULL;
     private $fileds = NULL;
 
     public function __construct() {
-        $this->_table = 'works_categories';
+        $this->_table = 'sites_categories';
     }
 
     /**
@@ -23,49 +23,47 @@ class CreateWorksCategoriesTable extends Migration {
         /**
          * Existing table
          */
+
+        
         if (!Schema::hasTable($this->_table)) {
             Schema::create($this->_table, function (Blueprint $table) {
-                $table->increments('category_id');
-                $table->string('category_name');
+                $table->increments('site_category_id');
             });
         }
+        
+        
 
         /**
          * Existing fields
          */
-        //category_id
-        if (!Schema::hasColumn($this->_table, 'category_id')) {
-            Schema::table($this->_table, function (Blueprint $table) {
-                $table->increments('category_id');
-            });
-        }
-        //category_name
-        if (!Schema::hasColumn($this->_table, 'category_name')) {
-            Schema::table($this->_table, function (Blueprint $table) {
-                $table->string('category_name', 255);
-            });
-        }
+        //site_id
 
-        //category_parent
-        if (!Schema::hasColumn($this->_table, 'category_parent')) {
+        
+        if (!Schema::hasColumn($this->_table, 'site_category_id')) {
             Schema::table($this->_table, function (Blueprint $table) {
-                $table->string('category_parent', 255);
+                $table->increments('site_category_id');
             });
         }
         
-        //category_description
-        if (!Schema::hasColumn($this->_table, 'category_desciption')) {
+        if (!Schema::hasColumn($this->_table, 'site_id')) {
             Schema::table($this->_table, function (Blueprint $table) {
-                $table->string('category_desciption', 255);
+                $table->integer('site_id');
             });
         }
         
-        //status_id
-        if (!Schema::hasColumn($this->_table, 'category_status')) {
+        //site_name
+        if (!Schema::hasColumn($this->_table, 'site_category_name')) {
             Schema::table($this->_table, function (Blueprint $table) {
-                $table->integer('category_status');
+                $table->string('site_category_name', 255);
             });
         }
+        
+         if (!Schema::hasColumn($this->_table, 'site_category_status')) {
+            Schema::table($this->_table, function (Blueprint $table) {
+                $table->integer('site_category_status')->default(1);
+            });
+        }
+         
     }
 
     /**
@@ -74,7 +72,6 @@ class CreateWorksCategoriesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('works_categories');
+        Schema::dropIfExists('sites_categories');
     }
-
 }
