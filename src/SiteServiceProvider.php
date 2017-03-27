@@ -3,10 +3,9 @@
 namespace Sites;
 
 use Illuminate\Support\ServiceProvider;
-
-use URL, Route;
+use URL,
+    Route;
 use Illuminate\Http\Request;
-
 
 class SiteServiceProvider extends ServiceProvider {
 
@@ -20,17 +19,18 @@ class SiteServiceProvider extends ServiceProvider {
         /**
          * Publish
          */
-         $this->publishes([
-            __DIR__.'/config/site_admin.php' => config_path('site_admin.php'),
-        ],'config');
-
+        $this->publishes([
+            __DIR__ . '/config/site_admin.php' => config_path('site_admin.php'),
+                ], 'config');
+        $this->publishes([
+            __DIR__ . '/Public/js' => public_path('js')]);
         $this->loadViewsFrom(__DIR__ . '/views', 'site');
 
 
         /**
          * Translations
          */
-         $this->loadTranslationsFrom(__DIR__.'/lang', 'site');
+        $this->loadTranslationsFrom(__DIR__ . '/lang', 'site');
 
 
         /**
@@ -38,10 +38,9 @@ class SiteServiceProvider extends ServiceProvider {
          */
         $this->siteViewComposer($request);
 
-         $this->publishes([
-                __DIR__.'/../database/migrations/' => database_path('migrations')
-            ], 'migrations');
-
+        $this->publishes([
+            __DIR__ . '/../database/migrations/' => database_path('migrations')
+                ], 'migrations');
     }
 
     /**
@@ -57,7 +56,7 @@ class SiteServiceProvider extends ServiceProvider {
          */
         $this->app->make('Sites\Controllers\Admin\SiteController');
 
-         /**
+        /**
          * Load Views
          */
         $this->loadViewsFrom(__DIR__ . '/views', 'site');
@@ -71,7 +70,7 @@ class SiteServiceProvider extends ServiceProvider {
         view()->composer('site::site*', function ($view) {
             global $request;
             $site_id = $request->get('id');
-            $is_action = empty($site_id)?'page_add':'page_edit';
+            $is_action = empty($site_id) ? 'page_add' : 'page_edit';
 
             $view->with('sidebar_items', [
 
@@ -84,7 +83,7 @@ class SiteServiceProvider extends ServiceProvider {
                     "icon" => '<i class="fa fa-users"></i>'
                 ],
                 //add
-                trans('site::site_admin.'.$is_action) => [
+                trans('site::site_admin.' . $is_action) => [
                     'url' => URL::route('admin_site.edit'),
                     "icon" => '<i class="fa fa-users"></i>'
                 ],
