@@ -25,7 +25,7 @@
                 <!--<div class="form-group">
                     <select id="map_categories" name="map_categories[]" class="form-control" multiple></select>
                 </div>-->
-                @include('site::site.elements.select2', ['name' => 'map_categories'])
+                @include('site::site.elements.select2', ['id' => $site_category->site_category_id])
             </td>
             <td>
                 <a href="{!! URL::route('admin_site.edit', ['id' => $site_category->site_id]) !!}"><i class="fa fa-edit fa-2x"></i></a>
