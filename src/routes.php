@@ -50,25 +50,16 @@ Route::group(['middleware' => ['web']], function () {
             'as' => 'admin_site.delete',
             'uses' => 'Sites\Controllers\Admin\SiteController@delete'
         ]);
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////SAMPLES ROUTE///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////SITE CATEGORIES///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
+
         Route::get('admin/site/categories', [
             'as' => 'admin_site.categories',
             'uses' => 'Sites\Controllers\Admin\SiteCategoryController@index'
         ]);
         
-        Route::get('admin/site/mapcategories', [
-            'as' => 'admin_site.mapcategories',
-            'uses' => 'Sites\Controllers\Admin\MapCategoryController@index'
+        Route::post('admin/site/categories', [
+            'as' => 'admin_site.categories.post',
+            'uses' => 'Sites\Controllers\Admin\SiteCategoryController@post'
         ]);
-        
-        Route::get('/work', function() {
-            return view('tags');
-        });
-        Route::get('workscategories/find', 'Sites\Controllers\Admin\SiteCategoryController@find');
+
     });
 });

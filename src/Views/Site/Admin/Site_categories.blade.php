@@ -8,35 +8,34 @@ Admin area: {{ trans('site::site_admin.page_list') }}
 
 <div class="row">
     <div class="col-md-12">
-        <div class="col-md-8">
 
-            <div class="panel panel-info">
+        <div class="panel panel-info">
 
-                <div class="panel-heading">
-                    <h3 class="panel-title bariol-thin"><i class="fa fa-group"></i> {!! $request->all() ? trans('site::site_admin.page_search') : trans('site::site_admin.page_list') !!}</h3>
-                </div>
-                
-                <!--MESSAGE-->
-                <?php $message = Session::get('message'); ?>
-                @if( isset($message) )
-                <div class="alert alert-success flash-message">{!! $message !!}</div>
-                @endif
-                <!--MESSAGE-->
-
-                <!--ERRORS-->
-                @if($errors && ! $errors->isEmpty() )
-                @foreach($errors->all() as $error)
-                <div class="alert alert-danger flash-message">{!! $error !!}</div>
-                @endforeach
-                @endif 
-                <!--ERRORS-->
-                <div class="panel-body">
-                    @include('site::site.admin.site_category_item')
-                </div>
+            <div class="panel-heading">
+                <h3 class="panel-title bariol-thin"><i class="fa fa-group"></i> {!! $request->all() ? trans('site::site_admin.page_search') : trans('site::site_admin.page_list') !!}</h3>
             </div>
-        </div>
-        <div class="col-md-4">
-            @include('site::site.admin.site_search')
+
+            <!--MESSAGE-->
+            <?php $message = Session::get('message'); ?>
+            @if( isset($message) )
+            <div class="alert alert-success flash-message">{!! $message !!}</div>
+            @endif
+            <!--MESSAGE-->
+
+            <!--ERRORS-->
+            @if($errors && ! $errors->isEmpty() )
+            @foreach($errors->all() as $error)
+            <div class="alert alert-danger flash-message">{!! $error !!}</div>
+            @endforeach
+            @endif 
+            <!--ERRORS-->
+            <div class="panel-body">
+                {!! Form::open(['route'=>['admin_site.categories.post'], 'method' => 'post'])  !!}
+                {!! Form::hidden('site_id',@$site_id) !!}
+                @include('site::site.admin.site_category_item')
+                {!! Form::submit('Save', array("class"=>"btn btn-info pull-right ")) !!}
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
 </div>
