@@ -21,7 +21,8 @@ class MapCategories extends Model {
         }
         return $map_arr;
     }
-   /**
+
+    /**
      *
      * @param type $input
      * @param type $work_id
@@ -33,13 +34,14 @@ class MapCategories extends Model {
 
     public function add_map_category($site_categories_id, $array_work_categories_id) {
         self::where('site_category_id', $site_categories_id)->delete();
-        foreach ($array_work_categories_id as $categories) {
-            self::create([
-                'site_category_id' => $site_categories_id,
-                'work_category_id' => $categories,
-            ]);
+        if (!empty($array_work_categories_id)) {
+            foreach ($array_work_categories_id as $categories) {
+                self::create([
+                    'site_category_id' => $site_categories_id,
+                    'work_category_id' => $categories,
+                ]);
+            }
         }
-        
     }
 
     /**

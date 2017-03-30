@@ -9,6 +9,7 @@ use Route,
     Redirect;
 use Sites\Models\Sites;
 use Sites\Models\WorksCategories;
+use Sites\Models\SitesCategories;
 /**
  * Validators
  */
@@ -20,9 +21,12 @@ class SiteController extends AdminController {
     private $obj_site = NULL;
     private $obj_site_categories = NULL;
     private $obj_validator = NULL;
+    private $obj_work_category = NULL;
 
     public function __construct() {
         $this->obj_site = new Sites();
+        $this->obj_site_categories = new SitesCategories();
+        $this->obj_work_category = new \Works\Models\WorksCategories();
     }
 
     /**
@@ -51,7 +55,7 @@ class SiteController extends AdminController {
 
         $site = NULL;
         $site_id = (int) $request->get('id');
-
+        $sites_categories = $this->obj_site_categories->get_sites_categories($site_id);
 
         if (!empty($site_id) && (is_int($site_id))) {
             $site = $this->obj_site->find($site_id);
@@ -60,10 +64,13 @@ class SiteController extends AdminController {
         $this->obj_site_categories = new Sites();
 
         $this->data_view = array_merge($this->data_view, array(
+            'sites_categories' => $sites_categories,
+            'site_id' => $site_id,
             'site' => $site,
             'request' => $request
         ));
-        return view('site::site.admin.site_edit', $this->data_view);
+        return view('site::site.admin.site_edit', $this->data_view)
+                ->with('category_parent', $this->obj_work_category->get_categories_parent(0));
     }
 
     /**
