@@ -84,16 +84,8 @@ class SiteController extends AdminController {
         $site_id = (int) $request->get('id');
         $site_name = $request->get('site_name');
         $site_url = $request->get('site_url');
-        $site_image = NULL;
+        $site_image = $request->get('site_image');
         $site = NULL;
-        if ($request->hasFile('site_image')){
-            if ($request->file('site_image')->isValid()) {
-                $image = $request->file('site_image');
-                $filename = $site_name . "." . $image->extension();
-                $image->storeAs('public/images', $filename);
-                $site_image = 'images/'.$filename;
-            }
-        }
         $input['site_name'] = $site_name;
         $input['site_url'] = $site_url;
         $input['site_image'] = $site_image;
