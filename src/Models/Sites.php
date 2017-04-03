@@ -30,6 +30,11 @@ class Sites extends Model {
 
         return $sites;
     }
+    
+    public function get_site_name($site_id){
+        $site_name = self::where('site_id', $site_id)->get();
+        return $site_name[0]->site_name;
+    }
 
 
 

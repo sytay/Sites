@@ -29,6 +29,7 @@ class SiteCategoryController extends AdminController {
         $this->obj_site_categories = new SitesCategories();
         $this->obj_work_category = new WorksCategories();
         $this->obj_map_categories = new MapCategories();
+        $this->obj_site = new Sites();
     }
 
     /**
@@ -39,20 +40,20 @@ class SiteCategoryController extends AdminController {
 
         $params = $request->all();
         $site_id = $request->get('site_id');
-
+        $site_name = $this->obj_site->get_site_name($site_id);
         $sites_categories = $this->obj_site_categories->get_sites_categories($site_id);
         $this->data_view = array_merge($this->data_view, array(
             'sites_categories' => $sites_categories,
             'site_id' => $site_id,
             'request' => $request,
-            'params' => $params
+            'params' => $params,
+            'site_name' => $site_name,
         ));
         return view('site::site.admin.site_categories', $this->data_view)
                         ->with('category_parent', $this->obj_work_category->get_categories_parent(0));
     }
 
     public function post(Request $request) {
-        $this->obj_validator = new SiteAdminValidator();
         $site_id = $request->get('site_id');
         $sites_categories = $this->obj_site_categories->get_sites_categories($site_id);
         foreach ($sites_categories as $site_categories){
@@ -66,35 +67,6 @@ class SiteCategoryController extends AdminController {
         ));
         return view('site::site.admin.site_categories', $this->data_view)
                         ->with('category_parent', $this->obj_work_category->get_categories_parent(0));
-    }
-
-    /**
-     *
-     * @return type
-     */
-    public function delete(Request $request) {
-
-        $site = NULL;
-        $site_id = $request->get('id');
-
-        if (!empty($site_id)) {
-            $site = $this->obj_site->find($site_id);
-
-            if (!empty($site)) {
-                //Message
-                $this->addFlashMessage('message', trans('site::site_admin.message_delete_successfully'));
-
-                $site->delete();
-            }
-        } else {
-            
-        }
-
-        $this->data_view = array_merge($this->data_view, array(
-            'site' => $site,
-        ));
-
-        return Redirect::route("admin_site");
     }
 
 }

@@ -70,24 +70,39 @@ class SiteServiceProvider extends ServiceProvider {
         view()->composer('site::site*', function ($view) {
             global $request;
             $site_id = $request->get('id');
+            $map_categories = $request->get('site_id');
             $is_action = empty($site_id) ? 'page_add' : 'page_edit';
-
-            $view->with('sidebar_items', [
-
-                /**
-                 * Samples
-                 */
-                //list
-                trans('site::site_admin.page_list') => [
-                    'url' => URL::route('admin_site'),
-                    "icon" => '<i class="fa fa-users"></i>'
-                ],
-                //add
-                trans('site::site_admin.' . $is_action) => [
-                    'url' => URL::route('admin_site.edit'),
-                    "icon" => '<i class="fa fa-users"></i>'
-                ],
-            ]);
+            if (!empty($map_categories)) {
+                $view->with('sidebar_items', [
+                    //list
+                    trans('site::site_admin.page_list') => [
+                        'url' => URL::route('admin_site'),
+                        "icon" => '<i class="fa fa-users"></i>'
+                    ],
+                    //add
+                    trans('site::site_admin.' . $is_action) => [
+                        'url' => URL::route('admin_site.edit'),
+                        "icon" => '<i class="fa fa-users"></i>'
+                    ],
+                    trans('site::site_admin.map_categories') => [
+                        'url' => URL::route('admin_site.categories'),
+                        "icon" => '<i class="fa fa-users"></i>'
+                    ],
+                ]);
+            } else {
+                $view->with('sidebar_items', [
+                    //list
+                    trans('site::site_admin.page_list') => [
+                        'url' => URL::route('admin_site'),
+                        "icon" => '<i class="fa fa-users"></i>'
+                    ],
+                    //add
+                    trans('site::site_admin.' . $is_action) => [
+                        'url' => URL::route('admin_site.edit'),
+                        "icon" => '<i class="fa fa-users"></i>'
+                    ],
+                ]);
+            }
             //
         });
     }

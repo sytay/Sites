@@ -16,7 +16,7 @@ return [
     'site_required_name' => 'Required name',
     'required' => 'is required',
     'search' => 'Search',
-    'site_name_label' => 'Site name:',
+    'site_name_label' => 'Site name: ',
     'site_name_placeholder' => 'site name',
     'site_category_name'=> 'Site category name',
     'site_categories' => 'Categories',
@@ -56,4 +56,5 @@ return [
     'site_category_add_button' => 'Add new site category',
     'site_category_id' => 'Category ID',
     'site_category_name' => 'Category name',
+    'map_categories' => 'Map categories'
 ];
