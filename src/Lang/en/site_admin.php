@@ -19,6 +19,7 @@ return [
     'site_name_label' => 'Site name:',
     'site_name_placeholder' => 'site name',
     'site_category_name'=> 'Site category name',
+    'site_categories' => 'Categories',
 
     /**
      * Message
