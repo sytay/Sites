@@ -86,7 +86,9 @@ class SiteServiceProvider extends ServiceProvider {
                     ],
                     trans('site::site_admin.map_categories') => [
                         'url' => URL::route('admin_site.categories'),
-                        "icon" => '<i class="fa fa-users"></i>'
+                        "icon" => '<i class="fa fa-users"></i>',
+                        'get_name' => 'site_id',
+                        'get_value' => $map_categories,
                     ],
                 ]);
             } else {

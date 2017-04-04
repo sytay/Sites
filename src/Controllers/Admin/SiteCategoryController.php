@@ -40,7 +40,11 @@ class SiteCategoryController extends AdminController {
 
         $params = $request->all();
         $site_id = $request->get('site_id');
-        $site_name = $this->obj_site->get_site_name($site_id);
+        if (!empty($site_id)) {
+            $site_name = $this->obj_site->get_site_name($site_id);
+        } else {
+            $site_name = "";
+        }
         $sites_categories = $this->obj_site_categories->get_sites_categories($site_id);
         $this->data_view = array_merge($this->data_view, array(
             'sites_categories' => $sites_categories,
@@ -56,8 +60,8 @@ class SiteCategoryController extends AdminController {
     public function post(Request $request) {
         $site_id = $request->get('site_id');
         $sites_categories = $this->obj_site_categories->get_sites_categories($site_id);
-        foreach ($sites_categories as $site_categories){
-            $array_work_categories_id = $request->get('map_categories'.$site_categories->site_category_id);
+        foreach ($sites_categories as $site_categories) {
+            $array_work_categories_id = $request->get('map_categories' . $site_categories->site_category_id);
             $this->obj_map_categories->add_map_category($site_categories->site_category_id, $array_work_categories_id);
         }
         $this->data_view = array_merge($this->data_view, array(
