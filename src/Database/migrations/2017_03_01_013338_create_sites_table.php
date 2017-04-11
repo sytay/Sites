@@ -56,23 +56,20 @@ class CreateSitesTable extends Migration {
         //site_url
         if (!Schema::hasColumn($this->_table, 'site_url_category')) {
             Schema::table($this->_table, function (Blueprint $table) {
-                $table->string('site_url_category', 255);
-                $table->null(true);
+                $table->string('site_url_category', 255)->nullable();
             });
         }
 
         //site_image
         if (!Schema::hasColumn($this->_table, 'site_image')) {
             Schema::table($this->_table, function (Blueprint $table) {
-                $table->string('site_image', 255);
-                $table->null(true);
+                $table->string('site_image', 255)->nullable();
             });
         }
         //status_id
         if (!Schema::hasColumn($this->_table, 'site_status')) {
             Schema::table($this->_table, function (Blueprint $table) {
-                $table->integer('site_status');
-                $table->default(0);
+                $table->integer('site_status')->default(0);
             });
         }
     }
